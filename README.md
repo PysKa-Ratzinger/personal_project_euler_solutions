@@ -1,6 +1,5 @@
 # Personal Project Euler Solutions
-Set of programs, each referring to a different  
-project euler problem, with some bugs introduced  
-so as to not give the real solution away that,  
-when the bugs are fixed and run, will give the  
-solution to said problem.
+
+## WARNING: Before continuing...
+
+This is my set of solutions to the project euler problems. If you have not solved these problems yourself, please refrain from consulting my solution without at least trying to solve the problem yourself. Don't ruin yourself the fun of finding the solution yourself. ;)
