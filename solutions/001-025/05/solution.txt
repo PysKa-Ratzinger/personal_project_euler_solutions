@@ -2,9 +2,8 @@ We know that 2520 is the smallest number that can be divided by each
 of the numbers from 1 to 10 without any remainder.
 
 That is because, the factors of 2520 are:
-2^3 + 3^2 + 5 + 7
-
-The factors for all numbers up to 20 are the following:
+2^3 * 3^2 * 5 * 7
+And these factors are common to all numbers from 1 to 10, which are:
 
 1:  1
 2:  2
@@ -16,6 +15,9 @@ The factors for all numbers up to 20 are the following:
 8:  2^3
 9:        3^2
 10: 2    *    5
+
+The factors for the remaining numbers up to 20 are the following:
+
 11:                 11
 12: 2^2 * 3
 13:                   13
@@ -27,7 +29,7 @@ The factors for all numbers up to 20 are the following:
 19:                       19
 20: 2^2   *   5
 
-From this, it follow that, in order to get the smallest number evenly
+From this, it follows that, in order to get the smallest number evenly
 disible by all of the numbers from 1 to 20, the factors for that
 number will have to be common to all it's divisors.
 
