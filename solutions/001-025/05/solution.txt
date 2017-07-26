@@ -1,0 +1,40 @@
+We know that 2520 is the smallest number that can be divided by each
+of the numbers from 1 to 10 without any remainder.
+
+That is because, the factors of 2520 are:
+2^3 + 3^2 + 5 + 7
+
+The factors for all numbers up to 20 are the following:
+
+1:  1
+2:  2
+3:        3
+4:  2^2
+5:            5
+6:  2  *  3
+7:                7
+8:  2^3
+9:        3^2
+10: 2    *    5
+11:                 11
+12: 2^2 * 3
+13:                   13
+14: 2      *      7
+15:       3 * 5
+16: 2^4
+17:                     17
+18: 2  *  3^2
+19:                       19
+20: 2^2   *   5
+
+From this, it follow that, in order to get the smallest number evenly
+disible by all of the numbers from 1 to 20, the factors for that
+number will have to be common to all it's divisors.
+
+Therefore, the number we are looking for is:
+2^4 * 3^2 * 5 * 7 * 11 * 13 * 17 * 19
+
+Which is: 232792560
+
+Problem solved ;)
+
