@@ -1,10 +1,23 @@
-# Ignore all files
+#Ignore all
 *
 
-# Do not ignore makefiles
-!Makefile
-!makefile
+#Unignore all Makefile files
+!Makefile*
+!makefile*
 
-# Do not ignore files with extensions
+##Unignore all with extensions
 !*.*
+
+#Unignore all directories
+!*/
+
+#Ignore all vim temp files
+*~
+*.swp
+
+#Ignore object files
+*.o
+
+#Ignore all gch files
+*.gch
 
