@@ -12,7 +12,8 @@ def combination(n, k):
     return factorial(n) // (factorial(k) * factorial(n - k))
 
 def main():
-    print(combination(40, 20))
+    print("If you can trust me, the number you are looking for is " \
+        + str(combination(40, 20)))
 
 main()
 
