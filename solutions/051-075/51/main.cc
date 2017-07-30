@@ -182,7 +182,8 @@ int main(){
     unsigned long numDigits = 0;
 
     for(int i=2; i<=NUM_DIGITS; i++){
-        //Apparently, project Euler does not like number 000109...
+        //  Apparently, project Euler does not like
+        //the number 000109 with mask 111000
         for(int j=powl(10, i-2)+1; j<powl(10, i); j+=2){
             if(j % 5 == 0) continue;
             if((res = magic(i, j, false)) != 0){
@@ -199,8 +200,7 @@ int main(){
     unsigned long duration =
         std::chrono::duration_cast<std::chrono::microseconds>(t2 - t1).count();
     printf("If you can trust me, the number you are "
-            "looking for is %lu with %lu digits\n",
-            res, numDigits);
+            "looking for is %lu\n", res);
     printf("Execution time: %lums\n", duration/1000);
     return 0;
 }
