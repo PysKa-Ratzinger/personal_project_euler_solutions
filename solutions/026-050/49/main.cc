@@ -1,44 +1,11 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include "../../utils/primes.hpp"
 #include <chrono>
 #include <list>
 
-#define VEC_MAX 100000
 #define START_VALUE 1000
 #define END_VALUE 10000
-
-unsigned long primes[VEC_MAX];
-unsigned long prime_sz = 0;
-
-bool is_prime(unsigned long number);
-
-unsigned long get_prime(unsigned long index){
-    if(index >= VEC_MAX){
-        printf("WARNING! Buffer Overflow imminent! Stopping execution...\n");
-        exit(EXIT_FAILURE);
-    }
-
-    if(prime_sz == 0){
-        primes[0] = 2;
-        prime_sz = 1;
-    }
-
-    while(index >= prime_sz){
-        unsigned long i=primes[prime_sz-1]+1;
-        for(; !is_prime(i); i++);
-        primes[prime_sz++] = i;
-    }
-    return primes[index];
-}
-
-bool is_prime(unsigned long number){
-    if(number == 1) return true;
-    for(unsigned int i=0; ; i++){
-        unsigned long prime = get_prime(i);
-        if(prime > number / prime) return true;
-        if(number % prime == 0) return false;
-    }
-}
 
 class Number{
 private:
@@ -77,10 +44,10 @@ bool Number::operator==(Number& other)
 
 int main(){
     std::chrono::high_resolution_clock::time_point t1 = std::chrono::high_resolution_clock::now();
-    
+
     std::list<Number> all_numbers;
     for(unsigned long i=START_VALUE; i<END_VALUE; i++){
-        if(!is_prime(i)) continue;
+        if(!isPrime(i)) continue;
         Number *temp = new Number(i);
         unsigned long num_permutations = 0;
         for(Number num : all_numbers){
@@ -90,7 +57,7 @@ int main(){
         }
         all_numbers.push_back(*temp);
     }
-    
+
     for(Number num : all_numbers){
         for(Number num2 : all_numbers){
             if(num2.getValue() <= num.getValue()) continue;

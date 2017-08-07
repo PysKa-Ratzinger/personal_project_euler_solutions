@@ -1,4 +1,7 @@
 #include <stdio.h>
+#include "../../utils/primes.hpp"
+
+#define NUM_DIGITS 9
 
 bool is_pandigital(unsigned long number){
     bool vec[9];
@@ -23,23 +26,41 @@ bool is_pandigital(unsigned long number){
     return true;
 }
 
-bool is_prime(unsigned long number){
-    for(unsigned long i=2; i<=number/i; i++){
-        if(number % i == 0) return false;
+bool isContinuous(bool* buffer, unsigned long buffer_size){
+    for(unsigned i=1; i<buffer_size; i++){
+        if(buffer[i] == true && buffer[i-1] == false){
+            return false;
+        }
     }
     return true;
 }
 
-int main(){
-    for(unsigned long i = 1000000000; i>0; i--){
-        if(is_pandigital(i)){
-            printf("%lu\n", i);
-            if(is_prime(i)){
-                printf("If you can trust me, the number you are looking for is %lu\n", i);
+unsigned long recursive_magic(bool buffer[NUM_DIGITS], unsigned long curr, int depth){
+    unsigned long solution = 0;
+    if(isPrime(curr) && isContinuous(buffer, NUM_DIGITS)){
+        solution = curr;
+    }
+    for(int i=8; i>=0; i--){
+        if(!buffer[i]){
+            buffer[i] = true;
+            unsigned long temp = recursive_magic(buffer, curr*10 + i+1, depth+1);
+            if(temp > solution){
+                solution = temp;
                 break;
             }
+            buffer[i] = false;
         }
     }
+    return solution;
+}
+
+int main(){
+    unsigned long res = 0;
+
+    bool buffer[NUM_DIGITS]{false};
+    res = recursive_magic(buffer, 0, 0);
+
+    printf("If you can trust me, the number you are looking for is %lu\n", res);
 
     return 0;
 }

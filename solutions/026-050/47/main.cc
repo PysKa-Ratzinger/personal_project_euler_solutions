@@ -1,44 +1,11 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include "../../utils/primes.hpp"
 #include <chrono>
 #include <list>
 
-#define VEC_MAX 100000
 #define START_VALUE 10
 #define FINAL_SIZE 4
-
-unsigned long primes[VEC_MAX];
-unsigned long prime_sz = 0;
-
-bool is_prime(unsigned long number);
-
-unsigned long get_prime(unsigned long index){
-    if(index >= VEC_MAX){
-        printf("WARNING! Buffer Overflow imminent! Stopping execution...\n");
-        exit(EXIT_FAILURE);
-    }
-
-    if(prime_sz == 0){
-        primes[0] = 2;
-        prime_sz = 1;
-    }
-
-    while(index >= prime_sz){
-        unsigned long i=primes[prime_sz-1]+1;
-        for(; !is_prime(i); i++);
-        primes[prime_sz++] = i;
-    }
-    return primes[index];
-}
-
-bool is_prime(unsigned long number){
-    if(number == 1) return true;
-    for(unsigned int i=0; ; i++){
-        unsigned long prime = get_prime(i);
-        if(prime > number / prime) return true;
-        if(number % prime == 0) return false;
-    }
-}
 
 class Number{
 private:
@@ -55,7 +22,7 @@ public:
 Number::Number(unsigned long value) : _value(value)
 {
     for(unsigned long i=0;; i++){
-        unsigned long prime = get_prime(i);
+        unsigned long prime = getPrime(i);
         if(prime > value) break;
         unsigned long cardinality = 0;
         while(value % prime == 0){
@@ -87,9 +54,9 @@ bool Number::operator==(Number& other)
 int main(){
     unsigned long res = 0;
     std::chrono::high_resolution_clock::time_point t1 = std::chrono::high_resolution_clock::now();
-    
+
     std::list<Number> curr_numbers;
-    
+
     for(unsigned long i=START_VALUE;; i++){
         Number *temp = new Number(i);
         if(temp->distinctPrimeNumbers() != 4){

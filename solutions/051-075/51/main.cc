@@ -1,40 +1,11 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
+#include "../../utils/primes.hpp"
 #include <chrono>
 
 #define NUM_DIGITS 8
 #define NUM_PRIMES 8
-#define PRIME_BUFFER 2048
-
-unsigned primes[PRIME_BUFFER] = {2, 3, 0};
-unsigned primes_sz = 2;
-
-bool isPrime(unsigned long number);
-
-unsigned getPrime(unsigned index){
-    if(index >= PRIME_BUFFER){
-        fprintf(stderr, "Buffer overflow imminent. Stopping execution.\n");
-        exit(EXIT_FAILURE);
-    }
-    while(index >= primes_sz){
-        unsigned number = primes[primes_sz-1]+2;
-        while(!isPrime(number)) number += 2;
-        primes[primes_sz++] = number;
-    }
-    return primes[index];
-}
-
-bool isPrime(unsigned long number){
-    unsigned index = 0;
-    unsigned prime = getPrime(index);
-    while(prime <= number/prime){
-        if(number % prime == 0) return false;
-        index++;
-        prime = getPrime(index);
-    }
-    return true;
-}
 
 unsigned numDigits(unsigned long number){
     unsigned res = 0;
@@ -179,7 +150,6 @@ int main(){
         std::chrono::high_resolution_clock::now();
 
     unsigned long res = 0;
-    unsigned long numDigits = 0;
 
     for(int i=2; i<=NUM_DIGITS; i++){
         //  Apparently, project Euler does not like
@@ -188,7 +158,6 @@ int main(){
             if(j % 5 == 0) continue;
             if((res = magic(i, j, false)) != 0){
                 magic(i, j, false);
-                numDigits = (unsigned)i;
                 break;
             }
         }
@@ -204,4 +173,3 @@ int main(){
     printf("Execution time: %lums\n", duration/1000);
     return 0;
 }
-

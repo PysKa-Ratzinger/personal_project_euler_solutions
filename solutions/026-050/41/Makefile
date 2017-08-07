@@ -1,5 +1,5 @@
-main: main.cc
-	g++ -g -O2 -Wall -Wextra -o main main.cc
+main: main.cc ../../utils/primes.cc
+	g++ -g -O2 -Wall -Wextra -o main main.cc ../../utils/primes.cc
 
 run: main
 	./main

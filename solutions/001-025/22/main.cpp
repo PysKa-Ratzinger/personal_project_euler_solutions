@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <string>
 
-#include "../utils/bst.h"
+#include "../../utils/bst.hpp"
 
 #define STR_LEN 512
 
@@ -28,18 +28,18 @@ int name_score(std::string str, int depth){
 
 unsigned long long get_total_score(Node<std::string>* node, int *depth){
   unsigned long long res = 0;
-  if(node->_left_child)
-    res += get_total_score(node->_left_child, depth);
+  if(node->getLeftChild())
+    res += get_total_score(node->getLeftChild(), depth);
 
-  int temp = name_score(*node->_elem, *depth);
+  int temp = name_score(node->getElem(), *depth);
   *depth = *depth + 1;
   if(res + temp < res){
     printf("DANGER: OVERFLOW!!!\n");
   }
   res += temp;
 
-  if(node->_right_child)
-    res += get_total_score(node->_right_child, depth);
+  if(node->getRightChild())
+    res += get_total_score(node->getRightChild(), depth);
 
   return res;
 }
@@ -101,11 +101,11 @@ int main(int argc, char *argv[]){
   // Insert all elements
   while(read_string(buffer, STR_LEN, fd)){
     std::string *str = new std::string(buffer);
-    bst->insert(str);
+    bst->insert(*str);
   }
 
   int depth = 1;
-  unsigned long long res = get_total_score(bst->_head_node, &depth);
+  unsigned long long res = get_total_score(bst->getHead(), &depth);
   printf("If you can trust me, the total score you are looking for is %llu\n", res);
 
   delete bst;

@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include "../../utils/primes.hpp"
 #include <unordered_set>
 #include <cmath>
 
@@ -17,19 +18,12 @@ int rot(int num, int num_size){
     return num / 10 + num % 10 * pow(10, num_size-1);
 }
 
-bool is_prime(int num){
-    for(int i=2; i<=num/i; i++){
-        if(num % i == 0) return false;
-    }
-    return true;
-}
-
 bool magic(int num){
     int num_size = num_digits(num);
-    if(is_prime(num)){
+    if(isPrime(num)){
         for(int i=1; i<num_size; i++){
             num = rot(num, num_size);
-            if(!is_prime(num)) return false;
+            if(!isPrime(num)) return false;
         }
         return true;
     }
@@ -38,14 +32,13 @@ bool magic(int num){
 
 int main(){
     int res = 0;
-    
+
     for(int i=2; i<MAX_NUM; i++){
         if(magic(i)){
-            printf("%d\n", i);
             res++;
         }
     }
-    
+
     printf("If you can trust me, the number you are looking for is %d.\n", res);
     return 0;
 }

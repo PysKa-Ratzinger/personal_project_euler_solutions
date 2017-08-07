@@ -1,5 +1,5 @@
-main: main.cpp ../utils/bst.cpp
-	g++ -o main main.cpp ../utils/bst.cpp
+main: main.cpp
+	g++ -g -O3 -o main main.cpp
 
 run: main
 	./main
