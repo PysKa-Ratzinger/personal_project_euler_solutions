@@ -2,8 +2,8 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "dictionary.h"
-#include "utils.h"
+#include "../../utils/dictionary.hpp"
+#include "../../utils/utils.h"
 
 #define BUFFER_SZ 4096
 #define INPUT_FILE_NAME "input.txt"

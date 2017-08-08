@@ -1,5 +1,5 @@
-main: main.cc dictionary.cc utils.c
-	g++ -g -O2 -Wall -Wextra -o main main.cc dictionary.cc utils.c
+main: main.cc ../../utils/utils.c ../../utils/dictionary.cc
+	g++ -g -O2 -Wall -Wextra -o main main.cc ../../utils/utils.c ../../utils/dictionary.cc
 
 run: main
 	./main

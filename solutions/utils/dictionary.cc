@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "dictionary.h"
+#include "dictionary.hpp"
 #include "utils.h"
 
 struct dictionary *create_dictionary(FILE* file){
