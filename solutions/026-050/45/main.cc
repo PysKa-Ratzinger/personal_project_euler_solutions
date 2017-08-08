@@ -1,23 +1,20 @@
 #include <stdio.h>
 #include <chrono>
 
-unsigned long polygonal_number(unsigned long sides, unsigned long index){
-    if(sides <= 2) return 1;
-    return ((sides - 2) * index * (index + 1)) / 2 + index + 1;
-}
+#include "../../utils/figurate_numbers.hpp"
 
 int main(){
     unsigned long res = 0;
     std::chrono::high_resolution_clock::time_point t1 = std::chrono::high_resolution_clock::now();
-    
+
     unsigned long values[3];
     unsigned long indexs[3]{285, 165, 144};
     unsigned long sides[3]{3, 5, 6};
-    
+
     for(int i=0; i<3; i++){
         values[i] = polygonal_number(sides[i], indexs[i]);
     }
-    
+
     while(values[0] != values[1] || values[1] != values[2]){
         int min_index = 0;
         for(int i=1; i<3; i++){

@@ -43,4 +43,3 @@ int main(){
     printf("Execution time: %lums\n", duration/1000);
     return 0;
 }
-

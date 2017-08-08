@@ -1,5 +1,5 @@
 main: main.cc ../../utils/figurate_numbers.cc
-	g++ -g -O2 -Wall -Wextra -o main main.cc ../../utils/figurate_numbers.cc
+	g++ -O3 -Wall -Wextra -o main main.cc ../../utils/figurate_numbers.cc
 
 run: main
 	./main
