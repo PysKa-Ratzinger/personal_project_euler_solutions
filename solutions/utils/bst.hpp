@@ -13,6 +13,7 @@ public:
     Node<T>* getRightChild();
     T& getElem();
     bool insert(T& elem);
+    T* contains(T& elem);
 };
 
 template <class T> class BST{
@@ -24,7 +25,9 @@ public:
     ~BST<T>();
     Node<T>* getHead();
     bool insert(T& elem);
+    void clear();
     unsigned long size();
+    T* contains(T& elem);
 };
 
 template <class T>
@@ -73,6 +76,25 @@ bool Node<T>::insert(T &elem){
 }
 
 template <class T>
+T* Node<T>::contains(T &elem){
+    if(elem < _elem){
+        if(_left_child == NULL){
+            return NULL;
+        }else{
+            return _left_child->contains(elem);
+        }
+    }else if(_elem < elem){
+        if(_right_child == NULL){
+            return NULL;
+        }else{
+            return _right_child->contains(elem);
+        }
+    }else{
+        return &_elem;
+    }
+}
+
+template <class T>
 BST<T>::BST(): _head_node(NULL), _size(0){}
 
 template <class T>
@@ -102,6 +124,23 @@ bool BST<T>::insert(T &elem){
 }
 
 template <class T>
+void BST<T>::clear(){
+    if(_head_node){
+        delete _head_node;
+        _head_node = NULL;
+    }
+}
+
+template <class T>
 unsigned long BST<T>::size(){
     return _size;
+}
+
+template <class T>
+T* BST<T>::contains(T &elem){
+    if(_head_node == NULL){
+        return NULL;
+    }else{
+        return _head_node->contains(elem);
+    }
 }
