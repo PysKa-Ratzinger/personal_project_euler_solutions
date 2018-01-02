@@ -87,10 +87,10 @@ uint64_t periodic_continued_fractions_period(int64_t number) {
             temp_value++;
         }
 
-// fprintf(stderr, "\n");
-// fprintf(stderr, "\t\tTEMP_DENOMINATOR BECAME %lu\n", temp_denominator);
-// fprintf(stderr, "\t\tTEMP_VALUE BECAME %lu\n", temp_value);
-// fprintf(stderr, "\t\tTEMP1 BECAME %ld\n", temp1);
+        fprintf(stderr, "\n");
+        fprintf(stderr, "\t\tTEMP_VALUE BECAME       %lu\n", temp_value);
+        fprintf(stderr, "\t\tTEMP_DENOMINATOR BECAME %lu\n", temp_denominator);
+        fprintf(stderr, "\t\tTEMP1 BECAME            %ld\n", temp1);
 
         step->value = temp_value;
         step->numerator = temp_denominator;
@@ -125,9 +125,10 @@ uint64_t magic() {
     }
 
     uint64_t res = 0;
-    for (uint64_t number = 1; number <= 10000; number++) {
+    for (uint64_t number = 1; number <= 10; number++) {
         // printf("Processing number %lu\n", number);
         uint64_t period = periodic_continued_fractions_period(number);
+        printf("%lu - %lu\n", number, period);
         if (period != 0 && period % 2 != 0) {
             res++;
         }
