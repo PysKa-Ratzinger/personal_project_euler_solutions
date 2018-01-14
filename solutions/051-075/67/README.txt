@@ -1,0 +1,2 @@
+** CHECK SOLUTION 18 **
+
