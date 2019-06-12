@@ -13,3 +13,4 @@ unsigned long getPrime(unsigned index);
  * @return        TRUE if it is prime, FALSE otherwise
  */
 bool isPrime(unsigned long number);
+
