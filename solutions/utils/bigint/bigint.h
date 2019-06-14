@@ -11,8 +11,16 @@ class BigInt {
 
 	public:
 		BigInt();
-		BigInt(std::string number);
-		BigInt& operator+ (const BigInt & other);
+		BigInt(const BigInt& other);
+		BigInt(const std::vector<uintmax_t> cells);
+		BigInt(const std::string number);
+
+		BigInt& operator= (const BigInt & other);
+		BigInt& operator+= (const BigInt & other);
+		BigInt& operator*= (const BigInt & other);
+
+		BigInt operator+ (const BigInt & other);
+		BigInt operator* (const BigInt & other);
 
 		std::string getString();
 };

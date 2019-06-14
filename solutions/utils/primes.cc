@@ -18,27 +18,37 @@ void initialize_primes() {
 }
 
 unsigned long getPrime(unsigned index){
-	if (!primes_initialized) initialize_primes();
+	if (!primes_initialized)
+		initialize_primes();
+
 	if(index >= PRIME_BUFFER){
 		fprintf(stderr, "Buffer overflow imminent. Stopping "
 				"execution.\n");
 		exit(EXIT_FAILURE);
 	}
+
 	while(index >= primes_sz){
 		unsigned number = primes[primes_sz-1]+2;
-		while(!isPrime(number)) number += 2;
+		while(!isPrime(number))
+			number += 2;
 		primes[primes_sz++] = number;
 	}
+
 	return primes[index];
 }
 
 bool isPrime(unsigned long number){
-	if (!primes_initialized) initialize_primes();
-	if(number == 0 || number == 1) return false;
+	if (!primes_initialized)
+		initialize_primes();
+
+	if(number == 0 || number == 1)
+		return false;
+
 	unsigned index = 0;
 	unsigned prime = getPrime(index);
-	while(prime <= number/prime){
-		if(number % prime == 0) return false;
+	while(prime*prime <= number){
+		if(number % prime == 0)
+			return false;
 		index++;
 		prime = getPrime(index);
 	}

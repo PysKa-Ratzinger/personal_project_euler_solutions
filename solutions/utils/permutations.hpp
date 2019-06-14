@@ -1,15 +1,35 @@
 #pragma once
 
 #include <stdlib.h>
+#include <vector>
 
-/**
- * @brief Iterates over all the permutations possible
- *
- * @param buf Buffer of elements
- * @param elem_size The size of each element
- * @param num_elems The number of elements in the buffer
- * @param cb Callback to process each permutation
- */
-bool processPermutations(void* buf, size_t elem_size, size_t num_elems,
-		bool (*cb)(void* buf, size_t num_elems, void* arg), void* arg);
+template<typename T, typename R>
+bool processPermutationsImpl(std::vector<T>& buf, size_t idx,
+		std::vector<T>& curr, bool (&cb)(std::vector<T>& buf, R& arg),
+		R& arg)
+{
+	if (idx >= buf.size()) {
+		if (curr.size() > 0) {
+			return cb(curr, arg);
+		}
+		return true;
+	} else {
+		if (!processPermutationsImpl(buf, idx + 1, curr, cb, arg)) {
+			return false;
+		}
+		curr.push_back(buf.at(idx));
+		bool result = processPermutationsImpl(buf, idx + 1, curr, cb,
+				arg);
+		curr.pop_back();
+		return result;
+	}
+}
+
+template<typename T, typename R>
+bool processPermutations(std::vector<T>& buf,
+		bool (&cb)(std::vector<T>& buf, R& arg), R& arg)
+{
+	std::vector<T> curr_elems;
+	return processPermutationsImpl(buf, 0, curr_elems, cb, arg);
+}
 

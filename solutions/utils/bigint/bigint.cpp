@@ -7,7 +7,11 @@
 
 BigInt::BigInt() : _cells() {}
 
-BigInt::BigInt(std::string number) : _cells() {
+BigInt::BigInt(const BigInt& other) : _cells(other._cells) {}
+
+BigInt::BigInt(const std::vector<uintmax_t> cells) : _cells(cells) {}
+
+BigInt::BigInt(const std::string number) : _cells() {
 	uintmax_t curr = 0;
 	int mult = 1;
 	for (auto it = number.rbegin(); it != number.rend(); it++) {
@@ -56,7 +60,15 @@ std::string BigInt::getString()
 	}
 }
 
-BigInt& BigInt::operator+(const BigInt & other){
+BigInt& BigInt::operator=(const BigInt & other) {
+	if (this == &other)
+		return *this;
+
+	_cells = other._cells;
+	return *this;
+}
+
+BigInt& BigInt::operator+=(const BigInt & other) {
 	uintmax_t carry = 0;
 	auto it1 = _cells.begin();
 	auto it2 = other._cells.begin();
@@ -83,3 +95,45 @@ BigInt& BigInt::operator+(const BigInt & other){
 	}
 	return *this;
 }
+
+BigInt BigInt::operator+(const BigInt& other) {
+	BigInt result = *this;
+	result += other;
+	return result;
+}
+
+BigInt& BigInt::operator*=(const BigInt& other) {
+	size_t half_size = _cells.size() / 2;
+
+	std::vector<uintmax_t> s_lo(_cells.begin(),
+			_cells.begin() + half_size);
+	std::vector<uintmax_t> s_hi(_cells.begin() + half_size,
+			_cells.end());
+	std::vector<uintmax_t> o_lo(other._cells.begin(),
+			other._cells.begin() + half_size);
+	std::vector<uintmax_t> o_hi(other._cells.begin() + half_size,
+			other._cells.end());
+
+	BigInt bs_lo(s_lo);
+	BigInt bs_hi(s_hi);
+	BigInt bo_lo(o_lo);
+	BigInt bo_hi(o_hi);
+
+	BigInt mult1 = bs_lo * bo_lo;
+	BigInt mult2 = bs_hi * bo_hi;
+
+	BigInt add1 = bs_lo + bs_hi;
+	BigInt add2 = bo_lo + bo_hi;
+
+	BigInt mult3 = add1 * add2;
+
+	*this = mult1 + mult2 + mult3;
+	return *this;
+}
+
+BigInt BigInt::operator*(const BigInt& other) {
+	BigInt result = *this;
+	result *= other;
+	return result;
+}
+

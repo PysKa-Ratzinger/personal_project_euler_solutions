@@ -71,15 +71,17 @@ std::vector<long> get_divs(long number) {
 
 long list_fractions(long max_number) {
 	long res = 0;
-	for (long i=1; i<max_number; i++) {
+	for (long i=2; i<max_number; i++) {
 		std::vector<long> divs = get_divs(i);
-		res += get_quant_numbers(i, max_number, divs);
+		long range_min = MIN(i*2-1, max_number);
+		long range_max = MIN(i*3, max_number);
+		res += get_quant_numbers(range_min, range_max, divs);
 	}
 	return res;
 }
 
 int main (int argc, char* argv[]) {
-	long result = list_fractions(1000000);
+	long result = list_fractions(12000);
 	printf("Got result: %ld\n", result);
 }
 

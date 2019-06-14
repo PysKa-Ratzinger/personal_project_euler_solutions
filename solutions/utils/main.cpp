@@ -7,8 +7,15 @@ int main (int argc, char* argv[]) {
 	printf("Number: %s\n", a.getString().c_str());
 	printf("Number: %s\n", b.getString().c_str());
 
-	a = a + b;
+	BigInt c = a + b;
 	printf("Number: %s\n", a.getString().c_str());
+	printf("Number: %s\n", b.getString().c_str());
+	printf("Number: %s\n", c.getString().c_str());
+
+	a += b;
+	printf("Number: %s\n", a.getString().c_str());
+	printf("Number: %s\n", b.getString().c_str());
+	printf("Number: %s\n", c.getString().c_str());
 
 	return 0;
 }
