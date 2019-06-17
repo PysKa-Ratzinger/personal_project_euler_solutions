@@ -1,19 +1,16 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <vector>
+
 #include "primes.hpp"
 
-#define PRIME_BUFFER 200000
-
-unsigned *primes;
-unsigned primes_sz = 0;
+std::vector<unsigned> primes;
 bool primes_initialized = false;
 
 void initialize_primes() {
-	primes = (unsigned*)malloc(sizeof(unsigned)*PRIME_BUFFER);
-	primes[0] = 2;
-	primes[1] = 3;
-	primes[2] = 0;
-	primes_sz = 2;
+	primes.clear();
+	primes.push_back(2);
+	primes.push_back(3);
 	primes_initialized = true;
 }
 
@@ -21,20 +18,38 @@ unsigned long getPrime(unsigned index){
 	if (!primes_initialized)
 		initialize_primes();
 
-	if(index >= PRIME_BUFFER){
-		fprintf(stderr, "Buffer overflow imminent. Stopping "
-				"execution.\n");
-		exit(EXIT_FAILURE);
-	}
-
-	while(index >= primes_sz){
-		unsigned number = primes[primes_sz-1]+2;
+	while(index >= primes.size()){
+		unsigned number = primes[primes.size()-1]+2;
 		while(!isPrime(number))
 			number += 2;
-		primes[primes_sz++] = number;
+		primes.push_back(number);
 	}
 
 	return primes[index];
+}
+
+std::vector<unsigned long> getDivs(unsigned long number, bool withReps) {
+	unsigned long index = 0;
+	unsigned long prime = getPrime(index);
+	std::vector<unsigned long> res;
+	while (prime <= number/prime) {
+		if (number % prime == 0) {
+			number /= prime;
+			res.push_back(prime);
+			while (number % prime == 0) {
+				number /= prime;
+				if (withReps) {
+					res.push_back(prime);
+				}
+			}
+		}
+		index++;
+		prime = getPrime(index);
+	}
+	if (number != 1) {
+		res.push_back(number);
+	}
+	return res;
 }
 
 bool isPrime(unsigned long number){

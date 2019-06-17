@@ -16,7 +16,7 @@ struct cresult {
 	long result;
 };
 
-bool handle_permutation(std::vector<long>& perm, struct cresult& res) {
+bool handle_permutation(std::vector<unsigned long>& perm, struct cresult& res) {
 	long mult = 1;
 	for (long num : perm) mult *= num;
 	long num_mults = res.max / mult - res.min / mult;
@@ -24,7 +24,7 @@ bool handle_permutation(std::vector<long>& perm, struct cresult& res) {
 	return true;
 }
 
-long get_quant_numbers(long min, long max, std::vector<long>& divs) {
+long get_quant_numbers(long min, long max, std::vector<unsigned long>& divs) {
 	struct cresult res;
 	res.max = max;
 	res.min = min;
@@ -48,31 +48,10 @@ long get_quant_numbers(long min, long max, std::vector<long>& divs) {
 	return res.result;
 }
 
-std::vector<long> get_divs(long number) {
-	long index = 0;
-	long prime = getPrime(index);
-	std::vector<long> res;
-	while (prime <= number/prime) {
-		if (number % prime == 0) {
-			number /= prime;
-			res.push_back(prime);
-			while (number % prime == 0) {
-				number /= prime;
-			}
-		}
-		index++;
-		prime = getPrime(index);
-	}
-	if (number != 1) {
-		res.push_back(number);
-	}
-	return res;
-}
-
 long list_fractions(long max_number) {
 	long res = 0;
 	for (long i=1; i<max_number; i++) {
-		std::vector<long> divs = get_divs(i);
+		std::vector<unsigned long> divs = getDivs(i, false);
 		res += get_quant_numbers(i, max_number, divs);
 	}
 	return res;
