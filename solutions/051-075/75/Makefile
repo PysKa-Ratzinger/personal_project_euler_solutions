@@ -1,6 +1,6 @@
 
 main: main.cpp
-	g++ -g -O0 -I../../utils/ -o main main.cpp ../../utils/primes.cc -lm
+	g++ -O3 -I../../utils/ -o main main.cpp ../../utils/primes.cc -lm
 
 run: main
 	./main
