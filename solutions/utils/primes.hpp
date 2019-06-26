@@ -1,6 +1,7 @@
 #pragma once
 
 #include <vector>
+#include <list>
 
 /**
  * Gets the prime whose index is equal to the one passed as an argument
@@ -8,6 +9,16 @@
  * @return       the prime whose indes is equal to the one passed as an argument
  */
 unsigned long getPrime(unsigned index);
+
+/**
+ * @brief Returns a list with every prime which is smaller than the given
+ * 	number
+ *
+ * @param max The maximum value to be returned
+ *
+ * @return A list with the requested primes is returned
+ */
+std::list<unsigned long> getPrimesSmallerThan(unsigned long max);
 
 /**
  * @brief Gets a list of divisors of a number

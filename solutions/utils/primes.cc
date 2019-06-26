@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <vector>
+#include <list>
 
 #include "primes.hpp"
 
@@ -26,6 +27,20 @@ unsigned long getPrime(unsigned index){
 	}
 
 	return primes[index];
+}
+
+std::list<unsigned long> getPrimesSmallerThan(unsigned long max) {
+	unsigned index = 0;
+	unsigned long prime = getPrime(index);
+	std::list<unsigned long> res;
+
+	while (prime < max) {
+		res.push_back(prime);
+		index++;
+		prime = getPrime(index);
+	}
+
+	return res;
 }
 
 std::vector<unsigned long> getDivs(unsigned long number, bool withReps) {
