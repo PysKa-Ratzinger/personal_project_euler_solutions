@@ -13,7 +13,7 @@ BigInt::BigInt(const std::vector<uintmax_t> cells) : _cells(cells) {}
 
 BigInt::BigInt(const std::string number) : _cells() {
 	uintmax_t curr = 0;
-	int mult = 1;
+	uintmax_t mult = 1;
 	for (auto it = number.rbegin(); it != number.rend(); it++) {
 		curr += (*it - '0') * mult;
 		mult *= 10;

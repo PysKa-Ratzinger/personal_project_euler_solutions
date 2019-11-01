@@ -3,7 +3,7 @@
 #include <string.h>
 
 #include "dictionary.hpp"
-#include "utils.h"
+#include "utils.hpp"
 
 struct dictionary *create_dictionary(FILE* file){
 	int curr_letter;

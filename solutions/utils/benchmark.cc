@@ -12,5 +12,6 @@ Benchmark::startTimer()
 double
 Benchmark::run()
 {
+	return 0.0;
 }
 
