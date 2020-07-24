@@ -1,6 +1,6 @@
 
 main: main.cpp
-	g++ -g -O0 -I../../utils/ -o main main.cpp
+	g++ -O2 -I../../utils/ -o main main.cpp
 
 run: main
 	./main
