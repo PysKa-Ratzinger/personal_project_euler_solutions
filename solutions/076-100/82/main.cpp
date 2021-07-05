@@ -60,17 +60,30 @@ public:
 		int y = node.second;
 
 		std::list<std::pair<std::pair<int, int>, int>> res;
-		if (x > 0) {
-			res.push_back({{x-1, y}, at(x-1, y)});
-		}
-		if (y > 0) {
-			res.push_back({{x, y-1}, at(x, y-1)});
-		}
-		if (x < m_width - 1) {
-			res.push_back({{x+1, y}, at(x+1, y)});
-		}
-		if (y < m_height - 1) {
-			res.push_back({{x, y+1}, at(x, y+1)});
+		// Starting Node
+		if (x == -1 && y == -1) {
+			for (int i=0; i<m_height; i++) {
+				res.push_back({{i, 0}, at(i, 0)});
+			}
+		} else {
+			if (x > 0) {
+				res.push_back({{x-1, y}, at(x-1, y)});
+			}
+
+			//up
+			if (y > 0) {
+				res.push_back({{x, y-1}, at(x, y-1)});
+			}
+
+			//right
+			if (x < m_width - 1) {
+				res.push_back({{x+1, y}, at(x+1, y)});
+			}
+
+			//down
+			if (y < m_height - 1) {
+				res.push_back({{x, y+1}, at(x, y+1)});
+			}
 		}
 		return res;
 	}
@@ -111,11 +124,23 @@ importGraphFromFile(std::string fileName) {
 }
 
 int main (int argc, char* argv[]) {
-	EulerGraph g = importGraphFromFile("./p083_matrix.txt");
+	EulerGraph g = importGraphFromFile("./p082_matrix.txt");
 	g.print();
 
-	std::list<std::pair<int, int>> path = graph::DijkstraSolver::solve(g,
-			{0, 0}, {{g.getWidth() - 1, g.getHeight() - 1}});
+	std::set<std::pair<int, int>> finalNodes;
+	int width = g.getWidth();
+	int height = g.getHeight();
+	for (int i=0; i<width; i++) {
+		finalNodes.insert({i, height-1});
+	}
+
+	std::list<std::pair<int, int>> path;
+	path = graph::DijkstraSolver::solve(g, {-1, -1}, finalNodes);
+	if (path.empty()) {
+		std::cout << "Could not calculate path" << std::endl;
+		return 0;
+	}
+
 	std::set<std::pair<int, int>> pathSet;
 
 	for (auto& p : path) {
@@ -126,7 +151,9 @@ int main (int argc, char* argv[]) {
 
 	int pathSum = 0;
 	for (auto& p : path) {
-		pathSum += g.at(p.first, p.second);
+		if (p.first != -1) {
+			pathSum += g.at(p.first, p.second);
+		}
 	}
 
 	std::cout << "Path cost: " << pathSum << std::endl;

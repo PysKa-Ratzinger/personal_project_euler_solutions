@@ -3,7 +3,6 @@
 
 #include "node.hpp"
 
-#include <vector>
 #include <set>
 #include <map>
 
@@ -16,11 +15,12 @@ private:
 public:
 template<class T>
 static std::list<T> solve(Graph<T> const& map,
-		T startingNode, T finalNode)
+		T startingNode, std::set<T> finalNodes)
 {
 	std::list<T> res;
 
-	if (startingNode == finalNode) {
+	auto it = finalNodes.find(startingNode);
+	if (it != finalNodes.end()) {
 		res.push_back(startingNode);
 		return res;
 	}
@@ -34,7 +34,7 @@ static std::list<T> solve(Graph<T> const& map,
 	T currentNode = startingNode;
 	int currentWeight = 0;
 
-	while (currentNode != finalNode) {
+	while (finalNodes.find(currentNode) == finalNodes.end()) {
 		for (auto& p : map.getEdges(currentNode)) {
 			if (visited.find(p.first) != visited.end()) {
 				continue;

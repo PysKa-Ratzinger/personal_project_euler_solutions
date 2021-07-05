@@ -40,7 +40,7 @@ public:
 		return false;
 	}
 
-	std::list<std::pair<T, int>> getEdges(T node) const override
+	std::list<std::pair<T, int>> getEdges(const T& node) const override
 	{
 		std::list<std::pair<T, int>> res;
 		auto it = m_edges.find(node);
@@ -60,7 +60,8 @@ private:
 };
 
 Test*
-DijkstraTest::suite() {
+DijkstraTest::suite()
+{
 	TestSuite* res = new TestSuite("UtilsTest");
 	res->addTest(new TestCaller<DijkstraTest>(
 				"sample_test",
@@ -69,7 +70,8 @@ DijkstraTest::suite() {
 }
 
 void
-DijkstraTest::simpleTest() {
+DijkstraTest::simpleTest()
+{
 	BasicGraph<std::pair<int, int>> g;
 
 	for (int x=0; x<4; x++) {
@@ -93,21 +95,17 @@ DijkstraTest::simpleTest() {
 		g.addEdge({3, y}, {3, y+1}, 1);
 	}
 
-	auto res = graph::DijkstraSolver::solve(g, {0, 0}, {3, 3});
+	auto res = graph::DijkstraSolver::solve(g, {0, 0}, {{3, 3}});
 
 	auto it = res.begin();
 	auto prev = *it;
 	it++;
 
-	std::cout << "Path: ";
-	std::cout << prev.first << ", " << prev.second;
 	while (it != res.end()) {
 		auto curr = *it;
-		std::cout << " -> " << curr.first << ", " << curr.second;
 		CPPUNIT_ASSERT(g.edgeExists(prev, curr));
 		prev = curr;
 		it++;
 	}
-	std::cout << std::endl;
 }
 

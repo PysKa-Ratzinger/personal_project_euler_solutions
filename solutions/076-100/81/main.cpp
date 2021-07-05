@@ -60,12 +60,6 @@ public:
 		int y = node.second;
 
 		std::list<std::pair<std::pair<int, int>, int>> res;
-		if (x > 0) {
-			res.push_back({{x-1, y}, at(x-1, y)});
-		}
-		if (y > 0) {
-			res.push_back({{x, y-1}, at(x, y-1)});
-		}
 		if (x < m_width - 1) {
 			res.push_back({{x+1, y}, at(x+1, y)});
 		}
@@ -111,7 +105,7 @@ importGraphFromFile(std::string fileName) {
 }
 
 int main (int argc, char* argv[]) {
-	EulerGraph g = importGraphFromFile("./p083_matrix.txt");
+	EulerGraph g = importGraphFromFile("./p081_matrix.txt");
 	g.print();
 
 	std::list<std::pair<int, int>> path = graph::DijkstraSolver::solve(g,
